@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback | Foodie Hub India</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #3b3b3b;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            color: #f3aaa5; /* Brown color for headings */
+            margin-bottom: 20px;
+        }
+
+        
+        .feedback-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 50px 0;
+            min-height: 500px;
+        }
+        
+        @media (max-width: 900px) {
+            .feedback-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .feedback-form-container, .saved-feedback-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .feedback-form-container h2, .saved-feedback-container h2 {
+            color: #4a2c2a;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #d4a762;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+            background-color: #f9f9f9;
+        }
+        
+        .form-control:focus {
+            border-color: #d4a762;
+            outline: none;
+            background-color: white;
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        /* Rating System */
+        .rating-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .rating-stars {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .star {
+            font-size: 1.8rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .star:hover, .star.active {
+            color: #ffb300;
+        }
+        
+        .rating-value {
+            font-weight: 600;
+            color: #4a2c2a;
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        /* Form Buttons */
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background-color: #4a2c2a;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3a231f;
+        }
+        
+        .btn-secondary {
+            background-color: #757575;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #616161;
+        }
+        
+        /* Saved Feedback Display */
+        .saved-feedback-list {
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        /* Scrollbar styling */
+        .saved-feedback-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .saved-feedback-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .saved-feedback-list::-webkit-scrollbar-thumb {
+            background: #d4a762;
+            border-radius: 10px;
+        }
+        
+        .feedback-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border-left: 4px solid #d4a762;
+        }
+        
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .feedback-name {
+            font-weight: 600;
+            color: #4a2c2a;
+            font-size: 1rem;
+        }
+        
+        .feedback-date {
+            color: #757575;
+            font-size: 0.85rem;
+        }
+        
+        .feedback-rating {
+            color: #ffb300;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .feedback-message {
+            color: #555;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        /* Empty State */
+        .empty-feedback {
+            text-align: center;
+            padding: 30px 20px;
+            color: #757575;
+        }
+        
+        .empty-feedback i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+        
+        .empty-feedback p {
+            max-width: 250px;
+            margin: 0 auto;
+        }
+        
+        /* Validation Styles */
+        .validation-error {
+            color: #d32f2f;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-control.error {
+            border-color: #d32f2f;
+        }
+        
+        /* Success Message */
+        .success-message {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid #c8e6c9;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        /* Counter */
+        .feedback-counter {
+            background-color: #f5f5f5;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .counter-text {
+            color: #4a2c2a;
+            font-weight: 500;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .feedback-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .feedback-hero {
+                height: 250px;
+                margin-top: 60px;
+            }
+            
+            .feedback-container {
+                padding: 30px 0;
+            }
+            
+            .form-buttons {
+                flex-direction: column;
+            }
+            
+            .form-buttons button {
+                width: 100%;
+            }
+            
+            .main-nav ul {
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .feedback-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .feedback-hero p {
+                font-size: 1rem;
+                padding: 0 15px;
+            }
+            
+            .feedback-container {
+                padding: 20px 0;
+            }
+            
+            .feedback-form-container, .saved-feedback-container {
+                padding: 20px;
+            }
+            
+            .main-nav ul {
+                gap: 10px;
+            }
+            
+            .main-nav a {
+                padding: 6px 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+    <!-- Navigation -->
+      <header style="margin: 50px;">
+      <div class="logo">Foodie Hub</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="contact.html">Contact</a>
+        <a href="feedback.html">Feedback</a>
+      </nav>
+    </header>
+
+    <!-- Feedback Hero -->
+    <section class="feedback-hero">
+        <div class="container">
+            <h1>Customer Feedback</h1>
+            <p style="color:wheat">Share your dining experience with us. Your feedback helps us improve!</p>
+        </div>
+    </section>
+
+    <!-- Feedback Content -->
+    <section class="feedback-section">
+        <div class="container">
+            <div class="feedback-container">
+                <!-- Feedback Form -->
+                <div class="feedback-form-container">
+                    <h2>Share Your Experience</h2>
+                    <form id="feedbackForm">
+                        <div class="form-group">
+                            <label for="feedbackName">Full Name *</label>
+                            <input type="text" id="feedbackName" class="form-control" placeholder="Enter your name" required>
+                            <div class="validation-error" id="nameError">Please enter your name</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="feedbackEmail">Email Address *</label>
+                            <input type="email" id="feedbackEmail" class="form-control" placeholder="Enter your email" required>
+                            <div class="validation-error" id="emailError">Please enter a valid email</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Rating *</label>
+                            <div class="rating-container">
+                                <div class="rating-stars" id="ratingStars">
+                                    <span class="star" data-value="1">★</span>
+                                    <span class="star" data-value="2">★</span>
+                                    <span class="star" data-value="3">★</span>
+                                    <span class="star" data-value="4">★</span>
+                                    <span class="star" data-value="5">★</span>
+                                </div>
+                                <span class="rating-value" id="ratingValue">0/5</span>
+                                <input type="hidden" id="rating" value="0" required>
+                            </div>
+                            <div class="validation-error" id="ratingError">Please select a rating</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="feedbackMessage">Your Feedback *</label>
+                            <textarea id="feedbackMessage" class="form-control" required placeholder="Tell us about your experience..."></textarea>
+                            <div class="validation-error" id="messageError">Please enter your feedback</div>
+                        </div>
+                        
+                        <div class="form-buttons">
+                            <button type="submit" class="btn-primary">Submit Feedback</button>
+                            <button type="button" id="loadFeedback" class="btn-secondary">Load Feedback</button>
+                            <button type="button" id="clearFeedback" class="btn-secondary">Clear All</button>
+                        </div>
+                        
+                        <div class="success-message" id="successMessage">
+                            ✓ Thank you! Your feedback has been saved.
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Saved Feedback Display -->
+                <div class="saved-feedback-container">
+                    <h2>Saved Feedback</h2>
+                    
+                    <div class="feedback-counter">
+                        <span class="counter-text" id="feedbackCount">Total Feedback: 0</span>
+                    </div>
+                    
+                    <div class="saved-feedback-list" id="feedbackList">
+                        <div class="empty-feedback">
+                            <div style="font-size: 2.5rem; margin-bottom: 15px;">📝</div>
+                            <p>No feedback yet. Submit your feedback first!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <script>
+        // BASIC LOGIC FOR FEEDBACK SYSTEM
+        
+        // 1. Initialize variables
+        let feedbackData = [];
+        let currentRating = 0;
+        
+        // 2. Load saved feedback from localStorage on page load
+        function loadSavedFeedback() {
+            const saved = localStorage.getItem('foodieHubFeedback');
+            if (saved) {
+                feedbackData = JSON.parse(saved);
+            }
+            updateFeedbackDisplay();
+        }
+        
+        // 3. Star rating functionality
+        const stars = document.querySelectorAll('.star');
+        const ratingValue = document.getElementById('ratingValue');
+        const ratingInput = document.getElementById('rating');
+        
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                currentRating = parseInt(this.getAttribute('data-value'));
+                ratingInput.value = currentRating;
+                ratingValue.textContent = `${currentRating}/5`;
+                
+                // Update star colors
+                stars.forEach((s, index) => {
+                    if (index < currentRating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+                
+                document.getElementById('ratingError').style.display = 'none';
+            });
+        });
+        
+        // 4. Form validation
+        function validateForm() {
+            let isValid = true;
+            
+            const name = document.getElementById('feedbackName').value.trim();
+            const email = document.getElementById('feedbackEmail').value.trim();
+            const rating = document.getElementById('rating').value;
+            const message = document.getElementById('feedbackMessage').value.trim();
+            
+            // Simple validation
+            if (!name) {
+                showError('nameError', 'Please enter your name');
+                isValid = false;
+            }
+            
+            if (!email || !email.includes('@')) {
+                showError('emailError', 'Please enter a valid email');
+                isValid = false;
+            }
+            
+            if (rating === '0') {
+                showError('ratingError', 'Please select a rating');
+                isValid = false;
+            }
+            
+            if (!message) {
+                showError('messageError', 'Please enter your feedback');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.style.display = 'block';
+        }
+        
+        // 5. Save feedback (basic - to localStorage and .txt file)
+        function saveFeedback() {
+            const feedback = {
+                id: Date.now(),
+                name: document.getElementById('feedbackName').value.trim(),
+                email: document.getElementById('feedbackEmail').value.trim(),
+                rating: document.getElementById('rating').value,
+                message: document.getElementById('feedbackMessage').value.trim(),
+                date: new Date().toLocaleDateString()
+            };
+            
+            // Add to array
+            feedbackData.push(feedback);
+            
+            // Save to localStorage
+            localStorage.setItem('foodieHubFeedback', JSON.stringify(feedbackData));
+            
+            // Create .txt file content
+            const fileContent = `
+FOODIE HUB - FEEDBACK
+=====================
+Date: ${feedback.date}
+Name: ${feedback.name}
+Email: ${feedback.email}
+Rating: ${feedback.rating}/5
+Feedback: ${feedback.message}
+=====================
+`;
+            
+            // Create and download .txt file
+            const blob = new Blob([fileContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `feedback_${feedback.id}.txt`;
+            a.click();
+            
+            return feedback;
+        }
+        
+        // 6. Update feedback display
+        function updateFeedbackDisplay() {
+            const feedbackList = document.getElementById('feedbackList');
+            const feedbackCount = document.getElementById('feedbackCount');
+            
+            feedbackCount.textContent = `Total Feedback: ${feedbackData.length}`;
+            
+            if (feedbackData.length === 0) {
+                feedbackList.innerHTML = `
+                    <div class="empty-feedback">
+                        <div style="font-size: 2.5rem; margin-bottom: 15px;">📝</div>
+                        <p>No feedback yet. Submit your feedback first!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Show latest feedback first
+            const reversedData = [...feedbackData].reverse();
+            
+            feedbackList.innerHTML = reversedData.map(feedback => `
+                <div class="feedback-item">
+                    <div class="feedback-header">
+                        <div class="feedback-name">${feedback.name}</div>
+                        <div class="feedback-date">${feedback.date}</div>
+                    </div>
+                    <div class="feedback-rating">${'★'.repeat(feedback.rating)}${'☆'.repeat(5 - feedback.rating)}</div>
+                    <div class="feedback-message">${feedback.message}</div>
+                </div>
+            `).join('');
+        }
+        
+        // 7. Clear all feedback
+        function clearAllFeedback() {
+            if (confirm('Are you sure you want to delete all feedback?')) {
+                feedbackData = [];
+                localStorage.removeItem('foodieHubFeedback');
+                updateFeedbackDisplay();
+                alert('All feedback cleared!');
+            }
+        }
+        
+        // 8. Form submission handler
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+            
+            const feedback = saveFeedback();
+            
+            // Show success message
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
+            successMsg.textContent = `✓ Thank you ${feedback.name}! Your ${feedback.rating}/5 rating has been saved.`;
+            
+            // Hide message after 3 seconds
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+            
+            // Reset form
+            this.reset();
+            stars.forEach(star => star.classList.remove('active'));
+            ratingValue.textContent = '0/5';
+            ratingInput.value = '0';
+            currentRating = 0;
+            
+            // Update display
+            updateFeedbackDisplay();
+        });
+        
+        // 9. Button event listeners
+        document.getElementById('loadFeedback').addEventListener('click', function() {
+            loadSavedFeedback();
+            if (feedbackData.length === 0) {
+                alert('No saved feedback found.');
+            } else {
+                alert(`Loaded ${feedbackData.length} feedback entries.`);
+            }
+        });
+        
+        document.getElementById('clearFeedback').addEventListener('click', clearAllFeedback);
+        
+        // 10. Initialize on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            loadSavedFeedback();
+        });
+    </script>
+</body>
+</html>
