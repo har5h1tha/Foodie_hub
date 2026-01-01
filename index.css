@@ -22,6 +22,7 @@ header {
     align-items: center;
     padding: 12px 40px;
     border-radius: 18px;
+<<<<<<< HEAD
     background: rgba(43, 42, 42, 0.9);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
@@ -38,6 +39,19 @@ header {
     padding: 5px;
     border-radius: 9px;
 }
+=======
+    background: rgba(20, 20, 20, 0.9);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #fef3e0;
+}
+
+>>>>>>> 20281cfcf30198bc7421f94fceaa0cc7e758b80c
 nav a {
     margin-left: 26px;
     color: #f5e0c8;
