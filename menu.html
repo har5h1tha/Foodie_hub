@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="menu.css">
+   
+</head>
+<body>
+    <div class="overlay">
+      <header style="margin: 50px;">
+      <div class="logo">Foodie Hub</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="contact.html">Contact</a>
+        <a href="feedback.html">Feedback</a>
+      </nav>
+    </header>
+    <div class="container">
+        <!-- Left Section - Menu -->
+        <section class="menu-section">
+            <div class="menu-header">
+                <h1>Our Menu</h1>
+                <p>Select items to add to your order</p>
+            </div>
+            
+            <div class="menu-items">
+                <!-- Menu Item 1 -->
+                <div class="menu-card">
+                    <div class="menu-img burger-img">BURGER</div>
+                    <div class="menu-content">
+                        <h3 class="dish-name">Classic Burger</h3>
+                        <p class="dish-desc">Juicy patty with cheese, lettuce, tomato, and special sauce</p>
+                        <div class="dish-price">₹300</div>
+                        <div class="quantity-controls">
+                            <button class="qty-btn minus-btn" data-item="burger">-</button>
+                            <span class="qty-display" id="burger-qty">0</span>
+                            <button class="qty-btn plus-btn" data-item="burger">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Menu Item 2 -->
+                <div class="menu-card">
+                    <div class="menu-img pizza-img">PIZZA</div>
+                    <div class="menu-content">
+                        <h3 class="dish-name">Margherita Pizza</h3>
+                        <p class="dish-desc">Classic pizza with tomato sauce, mozzarella cheese, and fresh basil</p>
+                        <div class="dish-price">₹450</div>
+                        <div class="quantity-controls">
+                            <button class="qty-btn minus-btn" data-item="pizza">-</button>
+                            <span class="qty-display" id="pizza-qty">0</span>
+                            <button class="qty-btn plus-btn" data-item="pizza">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Menu Item 3 -->
+                <div class="menu-card">
+                    <div class="menu-img pasta-img">PASTA</div>
+                    <div class="menu-content">
+                        <h3 class="dish-name">Creamy Alfredo Pasta</h3>
+                        <p class="dish-desc">Fettuccine pasta with rich creamy Alfredo sauce and herbs</p>
+                        <div class="dish-price">₹350</div>
+                        <div class="quantity-controls">
+                            <button class="qty-btn minus-btn" data-item="pasta">-</button>
+                            <span class="qty-display" id="pasta-qty">0</span>
+                            <button class="qty-btn plus-btn" data-item="pasta">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Menu Item 4 -->
+                <div class="menu-card">
+                    <div class="menu-img salad-img">SALAD</div>
+                    <div class="menu-content">
+                        <h3 class="dish-name">Caesar Salad</h3>
+                        <p class="dish-desc">Fresh romaine lettuce with Caesar dressing, croutons, and parmesan</p>
+                        <div class="dish-price">₹250</div>
+                        <div class="quantity-controls">
+                            <button class="qty-btn minus-btn" data-item="salad">-</button>
+                            <span class="qty-display" id="salad-qty">0</span>
+                            <button class="qty-btn plus-btn" data-item="salad">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Menu Item 5 -->
+                <div class="menu-card">
+                    <div class="menu-img fries-img">FRIES</div>
+                    <div class="menu-content">
+                        <h3 class="dish-name">French Fries</h3>
+                        <p class="dish-desc">Crispy golden fries served with ketchup and mayonnaise</p>
+                        <div class="dish-price">₹180</div>
+                        <div class="quantity-controls">
+                            <button class="qty-btn minus-btn" data-item="fries">-</button>
+                            <span class="qty-display" id="fries-qty">0</span>
+                            <button class="qty-btn plus-btn" data-item="fries">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Menu Item 6 -->
+                <div class="menu-card">
+                    <div class="menu-img drink-img">DRINK</div>
+                    <div class="menu-content">
+                        <h3 class="dish-name">Fresh Lemonade</h3>
+                        <p class="dish-desc">Refreshing homemade lemonade with mint and a hint of ginger</p>
+                        <div class="dish-price">₹120</div>
+                        <div class="quantity-controls">
+                            <button class="qty-btn minus-btn" data-item="drink">-</button>
+                            <span class="qty-display" id="drink-qty">0</span>
+                            <button class="qty-btn plus-btn" data-item="drink">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Right Section - Bill -->
+        <section class="bill-section">
+            <div class="bill-header">
+                <h2>Your Order</h2>
+                <p>Review and checkout</p>
+            </div>
+            
+            <div class="order-items" id="order-items">
+                <!-- Order items will be dynamically added here -->
+                <div class="empty-order" id="empty-order">No items selected yet. Add items from the menu.</div>
+            </div>
+            
+            <div class="bill-summary">
+                <div class="bill-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹0</span>
+                </div>
+                <div class="bill-row">
+                    <span>Tax (5%)</span>
+                    <span id="tax">₹0</span>
+                </div>
+                <div class="bill-row">
+                    <span>Delivery Fee</span>
+                    <span id="delivery">₹40</span>
+                </div>
+                <div class="bill-row bill-total">
+                    <span>Total</span>
+                    <span id="total">₹40</span>
+                </div>
+            </div>
+            
+            <button class="checkout-btn" id="checkout-btn">Checkout (₹40)</button>
+        </section>
+    </div>
+    </div>
+
+<script src="menu.js"></script>
+</body>
+</html>

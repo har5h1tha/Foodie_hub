@@ -1,0 +1,349 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+         background: url("./imgs/menuBg.jpg") center/cover no-repeat fixed;
+            background-size: cover;
+            /* background-color: #5e5c5c; */
+            color: #333;
+            min-height: 100vh;
+        }
+
+        
+.overlay {
+    background: rgba(0, 0, 0, 0.7);
+    min-height: 100vh;
+    padding: 24px;
+}
+        .logo{
+            background-color: rgb(68, 34, 20);
+            width: fit-content;
+            color: white;
+            font-weight: bold;
+            margin: 5px;
+            padding: 5px;   
+            border-radius: 9px;
+        }
+        
+       
+        .container {
+            display: flex;
+            min-height: 100vh;
+            padding: 20px;
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        /* Left Section - Menu */
+        .menu-section {
+            flex: 2;
+            position: sticky;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            overflow-y: auto;
+            max-height: calc(100vh - 40px);
+            position: relative;
+        }
+        
+        .menu-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+           border-bottom: 2px solid #a69c9c;
+            position: sticky;
+        }
+        
+        .menu-header h1 {
+            font-size: 36px;
+            color: wheat;
+            margin-bottom: 8px;
+        }
+        
+        .menu-header p {
+            color: #faf9f9;
+            font-size: 16px;
+        }
+        
+        .menu-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+        
+        .menu-card {
+            width: 220px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .menu-img {
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .burger-img {
+            background-image: url('./imgs/burger.jpg');
+            background-size: cover; 
+            background-position: center;
+
+        }
+        
+        .pizza-img {
+           background-image: url('./imgs/pizza.jpg');
+            background-size: cover; 
+            background-position: center;
+        }
+        
+        .pasta-img {
+            background-image: url('./imgs/pasta.jpg');
+             background-size: cover; 
+            background-position: center;
+        }
+        
+        .salad-img {
+            background-image: url('./imgs/salad.jpg');
+             background-size: cover; 
+            background-position: center;
+        }
+        
+        .fries-img {
+           background-image: url('./imgs/fries.jpg');
+            background-size: cover; 
+            background-position: center;
+        }
+        
+        .drink-img {
+            background-image: url('./imgs/lemonade.jpg');
+             background-size: cover; 
+            background-position: center;
+        }
+        
+        .menu-content {
+            padding: 15px;
+
+        }
+        
+        .dish-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .dish-desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .dish-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #692a00;
+            margin-bottom: 15px;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background-color: #5d5c5c;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        
+        .qty-btn:hover {
+             background-color:  #420505;
+            
+        }
+        
+        .qty-display {
+            font-size: 18px;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        /* Right Section - Bill */
+        .bill-section {
+            flex: 1;
+            /* background-color: rgb(252, 252, 252); */
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            color:rgb(12, 3, 58);
+        }
+        
+        .bill-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #a69c9c;
+        }
+        
+        .bill-header h2 {
+            font-size: 28px;
+            color: wheat;
+            margin-bottom: 8px;
+        }
+        
+        .bill-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .order-items {
+            margin-bottom: 25px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            color:rgb(228, 248, 10);
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-name {
+            font-weight: 500;
+        }
+        
+        .item-qty {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .item-price {
+            font-weight: 600;
+            color: wheat;
+            font-weight: bold;
+        }
+        
+        .bill-summary {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .bill-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .bill-total {
+            font-size: 22px;
+            font-weight: 700;
+            color: #420505;
+            border-top: 2px solid #240707;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #b36e5d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #323333;
+        }
+        
+        .empty-order {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+            font-style: italic;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .bill-section {
+                position: static;
+                max-height: none;
+            }
+            
+            .menu-section {
+                max-height: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-items {
+                justify-content: center;
+            }
+            
+            .menu-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+       
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        
+       
