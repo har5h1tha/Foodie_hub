@@ -1,19 +1,38 @@
-
-const Name = document.getElementById('name')
-const Email = document.getElementById('emailID')
+// Elements
+const Name = document.getElementById('name');
+const Email = document.getElementById('emailID');
+const feedback = document.getElementById('feedback');
 const stars = document.querySelectorAll(".star");
-const feedback = document.getElementById('feedback')
-const submitBtn = document.getElementById("btn")
-const form = document.getElementById('feedbackform')
+const form = document.getElementById('feedbackform');
+const submitBtn = document.getElementById('btn');
+const successMsg = document.getElementById('successMsg');
 
+let selectedRating = 0;
+
+// Show error messages
 function showError(id, message) {
     const el = document.getElementById(id);
     if (!el) return;
     el.textContent = message;
 }
 
+// // Clear all errors
+function clearErrors() {
+    showError('nameError', '');
+    showError('emailError', '');
+    showError('messageError', '');
+    showError('ratingError', '');
+}
 
-validate = () => {
+//clear errors
+Name.addEventListener('input', ()=>showError('nameError', ''));
+Email.addEventListener('input', ()=>showError('emailError', ''));
+feedback.addEventListener('input', ()=> showError('messageError', ''));
+
+
+// Validate form
+function validate() {
+    clearErrors();
     let isValid = true;
 
     if (!Name.value.trim()) {
@@ -21,7 +40,7 @@ validate = () => {
         isValid = false;
     }
 
-    if (!Email.value.includes('@')) {
+    if (!/^\S+@\S+\.\S+$/.test(Email.value)) {
         showError('emailError', 'Please enter a valid email');
         isValid = false;
     }
@@ -39,50 +58,35 @@ validate = () => {
     return isValid;
 }
 
-
-let selectedRating = 0;
-
-
+// Handle star rating click
 stars.forEach(star => {
     star.addEventListener("click", () => {
-        selectedRating = star.dataset.value;
+        selectedRating = parseInt(star.dataset.value);
 
         stars.forEach(s => {
-            s.classList.toggle(
-                "active",
-                s.dataset.value <= selectedRating
-            );
+            s.classList.toggle("active", s.dataset.value <= selectedRating);
         });
+
+        // Clear rating error as soon as user clicks a star
+        showError('ratingError', '');
     });
 });
 
-
-
-successDisplay = () => {
-    // Show success message
-    const successMsg = document.getElementById('successMsg');
-    successMsg.style.display = 'block';
+// Display success message and hide form
+function successDisplay() {
     form.style.display = 'none';
-    successMsg.textContent = `✓ Thank you ${Name.value}! Your  rating has been saved.`;
-
-    // // Hide message after 3 seconds
-    // setTimeout(() => {
-    //     successMsg.style.display = 'block';
-        // form.style.display = 'flex';
-    // }, 3000);
-
+    successMsg.style.display = 'block';
+    successMsg.querySelector("p").textContent =
+        `Thanks ${Name.value}! Your feedback has been saved.`;
 }
 
-
+// Handle form submission
 function handleSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
 
-    if (!validate()) return
-    console.log(Name.value);
-    console.log(Email.value);
-    console.log(selectedRating);
-    console.log(feedback.value);
+    if (!validate()) return;
 
+    // Example: Send data to server
     const data = {
         name: Name.value,
         email: Email.value,
@@ -90,28 +94,23 @@ function handleSubmit(event) {
         feedback: feedback.value
     };
 
-
     fetch("http://localhost:3001/submit-feedback", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name: Name.value,
-            email: Email.value,
-            rating: selectedRating,
-            feedback: feedback.value
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
     })
-        .then(res => res.json())
-        .then(() => {
-            successDisplay();
-            form.reset();
-        })
-        .catch(err => {
-            alert("Submission failed");
-            console.error(err);
-        });
-
+    .then(res => res.json())
+    .then(() => {
+        successDisplay();
+        form.reset();
+        selectedRating = 0;
+        stars.forEach(s => s.classList.remove("active"));
+    })
+    .catch(err => {
+        alert("Submission failed");
+        console.error(err);
+    });
 }
-form.addEventListener('submit', handleSubmit)
+
+// Attach submit event
+form.addEventListener('submit', handleSubmit);
