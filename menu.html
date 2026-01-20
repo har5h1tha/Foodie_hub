@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,7 +67,7 @@
                         <div class="menu-content">
                             <h3 class="dish-name">Creamy Alfredo Pasta</h3>
                             <p class="dish-desc">Fettuccine pasta with rich creamy Alfredo sauce and herbs</p>
-                            <div class="dish-price">₹250</div>
+                            <div class="dish-price">₹200</div>
                             <div class="quantity-controls">
                                 <button class="qty-btn minus-btn" data-item="pasta">-</button>
                                 <span class="qty-display" id="pasta-qty">0</span>
@@ -119,6 +120,24 @@
                             </div>
                         </div>
                     </div>
+
+                    <!--  (NEW ITEM)-->
+                    <div class="menu-card">
+                        <div class="menu-img vanilla-img">Vanilla</div>
+                        <div class="menu-content">
+                            <h3 class="dish-name">Vanilla</h3>
+                            <p class="dish-desc">Refreshing homemade ice-cream with choco syrup and a wafer</p>
+                            <div class="dish-price">₹90</div>
+                            <div class="quantity-controls">
+                                <button class="qty-btn minus-btn" data-item="vanilla">-</button>
+                                <span class="qty-display" id="vanilla-qty">0</span>
+                                <button class="qty-btn plus-btn" data-item="vanilla">+</button>
+                            </div>
+                        </div>
+                    </div>
+                
+
+
                 </div>
             </section>
 
@@ -165,7 +184,7 @@
                     <small id="PhoneErr" class="error"></small>
 
                     <textarea id="address-input" placeholder="Enter your full delivery address"></textarea>
-                       <small id="AddressErr" class="error"></small>
+                    <small id="AddressErr" class="error"></small>
                     <button id="place-order-btn">Place Order</button>
                 </div>
             </div>
@@ -185,4 +204,3 @@
 
     <script src="menu.js"></script>
 </body>
-

@@ -5,7 +5,8 @@ const menuItems = {
     pasta: { name: "Creamy Alfredo Pasta", price: 200, qty: 0, elementId: "pasta-qty" },
     salad: { name: "Caesar Salad", price: 150, qty: 0, elementId: "salad-qty" },
     fries: { name: "French Fries", price: 80, qty: 0, elementId: "fries-qty" },
-    drink: { name: "Fresh Lemonade", price: 70, qty: 0, elementId: "drink-qty" }
+    drink: { name: "Fresh Lemonade", price: 70, qty: 0, elementId: "drink-qty" },
+    vanilla: { name: "Vanilla", price: 90, qty: 0, elementId: "vanilla-qty" },
 };
 
 // --- DOM ELEMENTS ---
@@ -51,7 +52,7 @@ function updateBill() {
     const total = subtotal + tax + deliveryFee;
 
     subtotalElement.textContent = `₹${subtotal}`;
-    taxElement.textContent = `₹${tax}`;
+    taxElement.textContent = `₹${tax.toFixed(2)}`;
     totalElement.textContent = `₹${total}`;
     checkoutBtn.textContent = `Checkout (₹${total})`;
 
@@ -70,6 +71,7 @@ function updateOrderItems() {
     } else {
         emptyOrderMessage.style.display = 'none';
         orderedItems.forEach(item => {
+            console.log(item)
             const orderItemElement = document.createElement('div');
             orderItemElement.className = 'order-item';
             orderItemElement.innerHTML = `
@@ -85,6 +87,7 @@ function updateOrderItems() {
 // --- UPDATE QUANTITY ---
 function updateQuantity(itemId, change) {
     const item = menuItems[itemId];
+    // console.log(item)
     item.qty = Math.max(0, item.qty + change);
     document.getElementById(item.elementId).textContent = item.qty;
 
@@ -102,6 +105,7 @@ function updateQuantity(itemId, change) {
 
 // --- EVENT LISTENERS FOR PLUS/MINUS BUTTONS ---
 document.querySelectorAll('.plus-btn').forEach(btn => {
+    // console.log(btn.dataset.item)
     btn.addEventListener('click', () => updateQuantity(btn.dataset.item, 1));
 });
 
@@ -144,6 +148,8 @@ placeOrderBtn.addEventListener('click', () => {
     for (const id in menuItems) {
         menuItems[id].qty = 0;
         document.getElementById(menuItems[id].elementId).textContent = '0';
+        // console.log(id);
+        
     }
     order = [];
     addressInput.value = '';

@@ -78,6 +78,7 @@ function successDisplay() {
     successMsg.style.display = 'block';
     successMsg.querySelector("p").textContent =
         `Thanks ${Name.value}! Your feedback has been saved.`;
+        
 }
 
 // Handle form submission

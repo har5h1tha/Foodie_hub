@@ -140,6 +140,11 @@ body {
     background-size: cover;
     background-position: center;
 }
+.vanilla-img {
+    background-image: url('https://img.freepik.com/premium-photo/macro-shot-chocolate-syrup-being-drizzled-scoop-vanilla-ice-cream_1234738-106262.jpg');
+    background-size: cover;
+    background-position: center;
+}
 
 .menu-content {
     padding: 15px;
